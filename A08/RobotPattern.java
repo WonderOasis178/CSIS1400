@@ -1,3 +1,5 @@
+package A08;
+
 /*************************************************
  * Author: Tiare Jorquera
  * 
@@ -7,24 +9,23 @@
  * Important: The code still needs to work when you change the value of the
  * variable n
  *************************************************/
-package A08;
 
 public class RobotPattern {
    public static void main(String[] args) {
       int n = 6;
 
       // square nxn grid with the robot in the north east corner
-      // challenge one DONE!!!!!
+      // challenge one Done
       // Robot robot = new Robot(n, n, n - 1, 0);
       // challenge1(robot);
 
-      // challenge 2 **-- In Process --**
-      Robot robot = new Robot(n, n, n - 1, 0);
-      challenge2(robot);
+      // challenge 2 **-- Done --**
+      //Robot robot = new Robot(n, n, n - 1, 0);
+      //challenge2(robot);
 
-      // challenge 3 **-- TO BE WORKED ON --**
-      // robot = new Robot(n, n, n - 1, 0);
-      // challenge3(robot);
+      // challenge 3 **-- Working on it --**
+       Robot robot = new Robot(n, n, n - 1, 0);
+       challenge3(robot);
    }
 
    private static void challenge1(Robot robot) {
@@ -51,48 +52,98 @@ public class RobotPattern {
    }
 
    private static void challenge2(Robot robot) {
-      int n = 1;
+      int n = 0;
+      int i = 0;
+      int k = 0;
 
-      while (robot.check('S') == true) {
-         robot.go('S');
-         n++;
-      }
+      do {
+         if (n > 0) {
+            k -= 2;
 
-      while (robot.check('W') == true) {
-         robot.go('W');
-         n++;
-      }
+         }
+         i = 0;
 
-      while (robot.check('n') == true) {
-         robot.go('n');
-         n++;
-      }
+         while (robot.check("s") && (n == 0 || k == 0 || i <= k)) {
+            robot.go("s");
+            n++;
+            i++;
+         }
 
-      while (robot.check('e')) {
-         robot.go('e');
-         n++;
-      }
+
+         if (k == 0) {
+          k = i;
+         }
+         else {
+           k = i - 1;
+         }
+
+           i = 0;
+         while (robot.check("w") && (n == 0 || i < k)) {
+          robot.go("w");
+           n++;
+           i++;
+           }
+
+           i = 0;
+           while (robot.check("n") && (n == 0 || i < k)) {
+           robot.go("n");
+           n++;
+           i++;
+           }
+
+           i = 0;
+           while (robot.check("e") && (n == 0 || i < k - 1)) {
+           robot.go("e");
+           n++;
+           i++;
+           }
+           i = 0;
+
+      } while (k > 0);
 
       robot.say("did it");
    }
 
    private static void challenge3(Robot robot) {
-      int n = 1;
-      int numOfSteps = 0;
+      int n = 0;
+      int i = 0;
+      int k = 0;
 
-      if (robot.check('N')) {
-         robot.go('N');
-         numOfSteps++;
-      }
-      if (robot.check('E')) {
-         robot.go('E');
-         numOfSteps++;
-      }
+      do {
+         if (n > 0) {
+            k -= 2;
+         }
+         i = 0;
 
-      while (robot.check('S')) {
-         robot.go('S');
-         n++;
-      }
+         while (robot.check('s') && (n == 0 || k == 0 || i <= k)) {
+            robot.go('s');
+            n++;
+            i++;
+         }
+
+         if (k == 0) {
+            k = i;
+         } else {
+            k = i - 1;
+         }
+
+         while (robot.check('w') && (n == 0 || i < k)) {
+            robot.go('w');
+            n++;
+            i++;
+         }
+         i = 0;
+         robot.go('n');
+
+         while (robot.check('e') && (n == 0 || i < k - 1)) {
+            robot.go('e');
+            n++;
+            i++;
+         }
+         i = 0;
+
+      } while (k > 0);
+
       robot.say("finished");
 
    }
